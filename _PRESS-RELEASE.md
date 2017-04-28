@@ -18,24 +18,31 @@ Once the project moves into development, the press release can be used as a touc
  
 ## Heading ##
   > Name the product in a way the reader (i.e. your target customers) will understand.
+Stock Budget Allocator
 
 ## Sub-Heading ##
   > Describe who the market for the product is and what benefit they get. One sentence only underneath the title.
+Budget allocating app for people investing for their first time.  
 
 ## Summary ##
   > Give a summary of the product and the benefit. Assume the reader will not read anything else so make this paragraph good.
+If you have a $1,000, how would you invest this money with in the complicated world of stocks? This app will make it easy for you figure out how many shares of blue-chip stocks you can buy with you starter budget. You can add this in your portfolio and see how your money is diversified across the companies you've invest in. 
 
 ## Problem ##
   > Describe the problem your product solves.
+This solves a simple calculation problem to see how you can spend a set budget. Additional features will allow you to see diversification and historial returns. 
 
 ## Solution ##
   > Describe how your product elegantly solves the problem.
+No need for fancy excel-spreadsheets or visiting finance websites for price and metrics information. All this data is refreshed live through an API. 
 
 ## Quote from You ##
   > A quote from a spokesperson in your company.
+'Want to get started with stocks? We provide you with our best 5 blue-chip stocks picks and give you a tool to allocate your money towards your first investment!'
 
 ## How to Get Started ##
   > Describe how easy it is to get started.
+Set how much you want to budget (e.g. $1,000). Select the quantity of each stock you want to buy. Add and remove the stock to see how much you can buy.  
 
 ## Customer Quote ##
   > Provide a quote from a hypothetical customer that describes how they experienced the benefit.
