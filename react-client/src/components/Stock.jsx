@@ -6,8 +6,18 @@ class Stock extends React.Component {
   constructor(props) {
     super(props);
     this.state = { 
-      total: 0
+      total: 0,
+      qty: 0
     }
+    this.qtyChange = this.qtyChange.bind(this);
+  }
+
+  qtyChange (e) {
+    var totalCost = e.target.value * 10;
+    this.setState({
+      qty: e.target.value,
+      total: totalCost
+    })
   }
 
 
@@ -16,10 +26,11 @@ class Stock extends React.Component {
       <div style={divStyle}>
         <h5>AAPL</h5>
         <div>Price: $10</div>
+        <div>Shares: {this.state.qty} </div>
         <div>Total: ${this.state.total} </div>
         <form>
           <label>
-            <input type="text" name="name" placeholder='quantity'/>
+            <input type="text" name="name" placeholder='quantity' onChange={this.qtyChange}/>
           </label>
           <div>
             <input type="submit" value="Add" />
