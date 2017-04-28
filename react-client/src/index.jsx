@@ -11,6 +11,8 @@ class App extends React.Component {
       buyingPower: 1000,
       items: []
     }
+    this.handleAdd = this.handleAdd.bind(this);
+    this.handleRemove = this.handleRemove.bind(this);
   }
 
   componentDidMount() {
@@ -27,6 +29,14 @@ class App extends React.Component {
     // });
   }
 
+  handleAdd(addObj) {
+    console.log(addObj, 'ADDOBJ');
+  }
+  
+  handleRemove() {
+    console.log('INSIDE REMOVE');
+  }
+
   render () {
     return (<div>
       <h1>Stock Budget Allocator</h1>
@@ -34,11 +44,18 @@ class App extends React.Component {
         <p>Budget: ${this.state.budget}</p>
         <p>Buying Power: ${this.state.buyingPower}</p>
       </div>
-      <Stock />
-      <Stock />
-      <Stock />      
+      
+      <Stock handleAdd={this.handleAdd} handleRemove={this.handleRemove} symb={this.props.testData[0].symb} lprice={this.props.testData[0].lprice}/>
+      <Stock handleAdd={this.handleAdd} handleRemove={this.handleRemove} symb={this.props.testData[1].symb} lprice={this.props.testData[1].lprice}/>
+      <Stock handleAdd={this.handleAdd} handleRemove={this.handleRemove} symb={this.props.testData[2].symb} lprice={this.props.testData[2].lprice}/>
     </div>)
   }
 }
 
-ReactDOM.render(<App />, document.getElementById('app'));
+var testData = [
+  {symb: 'AAPL', lprice: 140.00},
+  {symb: 'TSLA', lprice: 315.07}, 
+  {symb: 'TWTR', lprice: 16.48}
+]
+ReactDOM.render(<App testData={testData}/>, document.getElementById('app'));
+

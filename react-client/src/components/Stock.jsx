@@ -1,6 +1,4 @@
 import React from 'react';
-import ListItem from './ListItem.jsx';
-
 
 class Stock extends React.Component {
   constructor(props) {
@@ -10,33 +8,45 @@ class Stock extends React.Component {
       qty: 0
     }
     this.qtyChange = this.qtyChange.bind(this);
+    this.add = this.add.bind(this);
+    this.remove = this.remove.bind(this);
+
   }
 
   qtyChange (e) {
-    var totalCost = e.target.value * 10;
+    var totalCost = e.target.value * this.props.lprice;
     this.setState({
       qty: e.target.value,
       total: totalCost
     })
   }
 
+  add () {  
+    var addObj = {
+      symb: this.props.symb,
+      price: this.props.lprice,
+      qty: this.state.qty,
+      total: this.state.total
+    }
+    this.props.handleAdd(addObj);
+  }
+
+  remove () {  
+    this.props.handleRemove();
+  }
 
   render () {
     return (
       <div style={divStyle}>
-        <h5>AAPL</h5>
-        <div>Price: $10</div>
+        <h5>STOCK TICKER: {this.props.symb}</h5>
+        <div>Price: ${this.props.lprice}</div>
         <div>Shares: {this.state.qty} </div>
         <div>Total: ${this.state.total} </div>
         <form>
-          <label>
-            <input type="text" name="name" placeholder='quantity' onChange={this.qtyChange}/>
-          </label>
-          <div>
-            <input type="submit" value="Add" />
-            <input type="submit" value="Remove" />      
-          </div>
+            <input type="number" placeholder='quantity' onChange={this.qtyChange}/>
         </form>
+        <button type="submit" value="Add" onClick={this.add}>ADD</button>
+        <button type="submit" value="Remove" onClick={this.remove}>Remove</button>
       </div>      
     )
   }
