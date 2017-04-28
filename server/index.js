@@ -6,21 +6,22 @@ var bodyParser = require('body-parser');
 
 var app = express();
 
-// UNCOMMENT FOR REACT
 app.use(express.static(__dirname + '/../react-client/dist'));
+app.use(bodyParser.urlencoded({ extended: false }))
 
-// UNCOMMENT FOR ANGULAR
-// app.use(express.static(__dirname + '/../angular-client'));
-// app.use(express.static(__dirname + '/../node_modules'));
 
-app.get('/items', function (req, res) {
-  items.selectAll(function(err, data) {
-    if(err) {
-      res.sendStatus(500);
-    } else {
-      res.json(data);
-    }
-  });
+app.get('/buyingPower', function (req, res) {
+  console.log('INSIDE SERVER GET ROUTE');
+});
+
+app.post('/add', function (req, res) {
+  console.log('INSIDE SERVER ADD POST ROUTE');
+  console.log('REQ BODY', req.body);
+  res.end();
+});
+
+app.post('/remove', function (req, res) {
+  console.log('INSIDE SERVER ADD POST ROUTE');
 });
 
 app.listen(3000, function() {

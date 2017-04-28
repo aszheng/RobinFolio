@@ -9,7 +9,6 @@ class App extends React.Component {
     this.state = { 
       budget: 1000,
       buyingPower: 1000,
-      items: []
     }
     this.handleAdd = this.handleAdd.bind(this);
     this.handleRemove = this.handleRemove.bind(this);
@@ -31,6 +30,12 @@ class App extends React.Component {
 
   handleAdd(addObj) {
     console.log(addObj, 'ADDOBJ');
+    $.post('/add', addObj,function (req, res){
+      console.log("INSIDE HANDLEADD POST");
+    })
+    .done( () => {
+      console.log('POST IS SUCCESSFUL')
+    })
   }
   
   handleRemove() {

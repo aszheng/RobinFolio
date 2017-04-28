@@ -45,7 +45,7 @@ class Stock extends React.Component {
         <form>
             <input type="number" placeholder='quantity' onChange={this.qtyChange}/>
         </form>
-        <button type="submit" value="Add" onClick={this.add}>ADD</button>
+        <button type="submit" value="Add" onClick={this.add}>Add</button>
         <button type="submit" value="Remove" onClick={this.remove}>Remove</button>
       </div>      
     )
