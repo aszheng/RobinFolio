@@ -6,8 +6,13 @@ exports.addOrder = function (req, res) {
 
   newOrder.save( function (err, savedOrder) {
     if (err) {res.send(err)}
-    res.json(savedOrder);
-  })
+  }).then(() => {
+    Order.find({ }, function (err, result) {
+      if (err){res.send(err)}
+      res.json(result);  
+    });
+    }
+  )
 
 };
 
@@ -15,8 +20,12 @@ exports.rmOrder = function (req, res) {
   
   Order.deleteOne({ symb: req.body.symb }, function (err, result) {
     if (err){res.send(err)}
-    res.end('Removed');  
-  });
+  }).then( () => {
+    Order.find({ }, function (err, result) {
+      if (err){res.send(err)}
+      res.json(result);  
+    });
+  })
 
 };
 

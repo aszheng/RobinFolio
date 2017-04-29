@@ -12,6 +12,7 @@ class App extends React.Component {
     }
     this.handleAdd = this.handleAdd.bind(this);
     this.handleRemove = this.handleRemove.bind(this);
+    this.countTotal = this.countTotal.bind(this);    
   }
 
   componentDidMount() {
@@ -28,28 +29,43 @@ class App extends React.Component {
     // });
   }
 
+  countTotal(data) {
+    var curTotal = 0;
+    data.forEach( (order) => {curTotal += order.total;})
+    return this.state.budget - curTotal;
+  }
+
   handleAdd(addObj) {
-    $.post('/add', addObj,function (req, res){
-      console.log("INSIDE HANDLEADD POST");
-      console.log(res.body);
-    })
-    .done( (err, result) => {
-      console.log('POST SUCCESSFUL');
+    $.post('/add', addObj).done( (data) => {
+      if (data.length > 0) {
+        var curPower = this.countTotal(data);
+        this.setState({
+          buyingPower: curPower
+        })
+      }
     })
   }
   
   handleRemove(removeObj) {
-    $.post('/remove', removeObj,function (req, res){
-      console.log("INSIDE HANDLE REMOVE POST");
-    })
-    .done( () => {
-      console.log('HANDLE REMOVE POST IS SUCCESSFUL')
+    $.post('/remove', removeObj).done ( (data) => {
+      console.log('DATA @ REMOVE', data);
+      if (data.length > 0) {
+        var curPower = this.countTotal(data);
+        this.setState({
+          buyingPower: curPower
+        })
+      } else {
+        var curPower = this.state.budget;
+        this.setState({
+          buyingPower: curPower
+        })        
+      }
     })
   }
 
   render () {
     return (<div>
-      <h1>Stock Budget Allocator</h1>
+      <h1>RobinHack</h1>
       <div>
         <p>Budget: ${this.state.budget}</p>
         <p>Buying Power: ${this.state.buyingPower}</p>
