@@ -13,5 +13,6 @@ module.exports = function (app) {
   app.route('/clearAll')
     .post(orderTable.clearAll);
 
+
 }
 

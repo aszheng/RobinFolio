@@ -1,4 +1,7 @@
+var express = require('express');
+var bodyParser = require('body-parser');
 var Order = require('../../database-mongo');
+
 
 exports.addOrder = function (req, res) {
 
@@ -43,7 +46,11 @@ exports.getAll = function (req, res) {
 };
 
 exports.clearAll = function (req, res) {
-  console.log("CLEARALL")
   Order.remove({}, function (err, result){});
   res.end();
+};
+
+exports.getAPIData = function (req, res) {
+  console.log("INSIDE getAPIData")
+  res.end('HELLO BACK from GET API DATA')
 };

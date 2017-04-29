@@ -1,9 +1,11 @@
 import React from 'react';
+import $ from 'jquery';
 
 class Stock extends React.Component {
   constructor(props) {
     super(props);
     this.state = { 
+      symb: 'AAPL',
       total: 0,
       qty: 0,
       sharesAdded: 0,
@@ -12,7 +14,18 @@ class Stock extends React.Component {
     this.qtyChange = this.qtyChange.bind(this);
     this.add = this.add.bind(this);
     this.remove = this.remove.bind(this);
+    this.getData = this.getData.bind(this);
   }
+
+  getData (e) {
+    e.preventDefault();
+    var ticker = this.refs.ticker.value;
+    $.post('/getAPIData', {symb: ticker})
+      .done( (data) => {
+        console.log('DATA', data)
+      })
+  }
+
 
   qtyChange (e) {
     var totalCost = e.target.value * this.props.lprice;
@@ -23,13 +36,13 @@ class Stock extends React.Component {
   }
 
   add () {  
-    this.inputQty = '';
-
     var sharesAdded = this.state.qty + this.state.sharesAdded;
     var totalAdded = this.state.total + this.state.totalAdded;
 
     this.setState({
       sharesAdded: sharesAdded,
+      qty: 0,
+      total: 0,
       totalAdded: totalAdded
     })
 
@@ -40,6 +53,7 @@ class Stock extends React.Component {
       total: this.state.total
     }
     this.props.handleAdd(addObj);
+
   }
 
   remove () {
@@ -61,9 +75,15 @@ class Stock extends React.Component {
     return (
       <div className="container">
         <div className="jumbotron">
+
+
           <h2 className="text-center">STOCK TICKER: {this.props.symb}</h2>
-          <p></p>
-          <div className="row">
+          <form onSubmit={this.getData}>
+            <input ref='ticker' type='text'/>
+            <input type='submit'/>
+          </form>
+         
+         <div className="row">
             <div className="col-md-6">
               <h4>Total Added: <small>${this.state.totalAdded}</small></h4> 
             </div>          
@@ -71,7 +91,6 @@ class Stock extends React.Component {
               <h4>Shares Added: <small>{this.state.sharesAdded}</small></h4> 
             </div>
           </div>
-          <p></p>
 
           <table className="table table-hover">
             <thead>
@@ -90,10 +109,10 @@ class Stock extends React.Component {
             </tbody>
           </table>
 
+
           <div className="text-center">
-            <input type="number" min="0" max="100" placeholder='qty' 
+            <input type="number" min="0" max="100" value={this.state.qty} 
               onChange={this.qtyChange} 
-              ref={el => this.inputQty = el}
             />
             <button type="submit" value="Add" onClick={this.add} 
               className="btn btn-success btn-sm">Add
@@ -102,6 +121,7 @@ class Stock extends React.Component {
               className="btn btn-warning btn-sm">Remove
             </button>
           </div>
+
         </div>
       </div>
     )
