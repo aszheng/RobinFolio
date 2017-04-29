@@ -14,8 +14,7 @@ routes(app);
 
 app.post('/getAPIData', function (req, res) {
     var ticker = req.body.symb;
-    console.log("TICKER INSIDE SERVER", ticker);
-    request({ url: 'http://dev.markitondemand.com/Api/v2/Quote', qs: { symbol: ticker }}, function (err, response,body) {
+    request({ url: 'http://dev.markitondemand.com/Api/v2/Quote/json', qs: { symbol: ticker }}, function (err, response,body) {
     res.json(body);
   })
 });

@@ -1,31 +1,49 @@
 import React from 'react';
 import $ from 'jquery';
+import StockDataTable from './StockDataTable.jsx';
+
 
 class Stock extends React.Component {
   constructor(props) {
     super(props);
     this.state = { 
-      symb: 'AAPL',
+      symb: '',
+      lprice: 0,
+      stockData: {"Status":"SUCCESS","Name":"","Symbol":"","LastPrice":0,"Change":0,"ChangePercent":0,"Timestamp":"","MSDate":0,"MarketCap":0,"Volume":0,"ChangeYTD":0,"ChangePercentYTD":0,"High":0,"Low":0,"Open":0},
       total: 0,
       qty: 0,
       sharesAdded: 0,
       totalAdded: 0
     }
+// {"Status":"SUCCESS","Name":"Apple Inc","Symbol":"AAPL","LastPrice":143.65,"Change":-0.139999999999986,"ChangePercent":-0.0973642116976051,"Timestamp":"Fri Apr 28 00:00:00 UTC-04:00 2017","MSDate":42853,"MarketCap":753665471000,"Volume":20860358,"ChangeYTD":115.82,"ChangePercentYTD":24.0286651700915,"High":144.3,"Low":143.27,"Open":144.09},    
     this.qtyChange = this.qtyChange.bind(this);
     this.add = this.add.bind(this);
     this.remove = this.remove.bind(this);
     this.getData = this.getData.bind(this);
+    this.handleGetDataClick = this.handleGetDataClick.bind(this);
   }
 
-  getData (e) {
+  componentDidMount() {
+    // this.getData(this.state.symb);
+  }  
+
+  getData (ticker) {
+    $.post('/getAPIData', {symb: ticker})
+      .then( (data) => {
+        var dataParsed = JSON.parse(data);
+        this.setState({
+          symb: dataParsed.Symbol,
+          stockData: dataParsed
+        });
+      })
+    this.refs.ticker.value = '';    
+  }
+
+  handleGetDataClick (e) {
     e.preventDefault();
     var ticker = this.refs.ticker.value;
-    $.post('/getAPIData', {symb: ticker})
-      .done( (data) => {
-        console.log('DATA', data)
-      })
+    this.getData(ticker);
   }
-
 
   qtyChange (e) {
     var totalCost = e.target.value * this.props.lprice;
@@ -47,8 +65,8 @@ class Stock extends React.Component {
     })
 
     var addObj = {
-      symb: this.props.symb,
-      price: this.props.lprice,
+      symb: this.state.symb,
+      price: this.state.lprice,
       qty: this.state.qty,
       total: this.state.total
     }
@@ -63,8 +81,8 @@ class Stock extends React.Component {
     })    
 
     var removeObj = {
-      symb: this.props.symb,
-      price: this.props.lprice,
+      symb: this.state.symb,
+      price: this.state.lprice,
       qty: this.state.qty,
       total: this.state.total
     }    
@@ -77,12 +95,16 @@ class Stock extends React.Component {
         <div className="jumbotron">
 
 
-          <h2 className="text-center">STOCK TICKER: {this.props.symb}</h2>
-          <form onSubmit={this.getData}>
-            <input ref='ticker' type='text'/>
-            <input type='submit'/>
-          </form>
-         
+          <h2 className="text-center">STOCK TICKER: {this.state.symb}</h2>
+          <div className='text-center'>
+            <form onSubmit={this.handleGetDataClick}>
+              <input ref='ticker' type='text'/>
+              <input className="btn btn-success btn-xs" type='submit'/>
+            </form>
+          </div>
+
+          <StockDataTable stockData={this.state.stockData}/>
+
          <div className="row">
             <div className="col-md-6">
               <h4>Total Added: <small>${this.state.totalAdded}</small></h4> 
@@ -102,7 +124,7 @@ class Stock extends React.Component {
             </thead>
             <tbody>
               <tr>
-                <td>${this.props.lprice}</td>
+                <td>${this.state.lprice}</td>
                 <td>{this.state.qty}</td>
                 <td>${this.state.total}</td>
               </tr>
@@ -115,10 +137,10 @@ class Stock extends React.Component {
               onChange={this.qtyChange} 
             />
             <button type="submit" value="Add" onClick={this.add} 
-              className="btn btn-success btn-sm">Add
+              className="btn btn-success btn-xs">Add
             </button>
             <button type="submit" value="Remove" onClick={this.remove} 
-              className="btn btn-warning btn-sm">Remove
+              className="btn btn-warning btn-xs">Remove
             </button>
           </div>
 
@@ -128,13 +150,5 @@ class Stock extends React.Component {
   }
 }
 
-// const divStyle = {
-//   color: 'white',
-//   backgroundColor:'#A9A9A9',
-//   borderStyle: 'solid',
-//   borderWidth: 2,  
-//   borderColor: 'black', 
-//   marginBottom: 5, 
-// };
 
 export default Stock;

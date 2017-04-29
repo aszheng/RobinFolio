@@ -15,7 +15,6 @@ class App extends React.Component {
     this.countTotal = this.countTotal.bind(this);    
     this.clearAll = this.clearAll.bind(this);    
     this.fetch = this.fetch.bind(this);    
-    this.getAPI = this.getAPI.bind(this);        
   }
 
   componentDidMount() {this.fetch();}
@@ -37,24 +36,6 @@ class App extends React.Component {
     $.post('/clearAll').done();
     this.fetch();
   }  
-
-  getAPI() {
-    console.log('went inside');
-
-    // $.get('http://finance.google.com/finance/info?client=ig&q=AAPL')
-    //   .done( (data) => {console.log('DATA', data)})    
-
-    $.get('/getAPIData')
-      .done( (data) => {console.log('DATA', data)})
-
-    // $.ajax({
-    //   url: 'http://finance.google.com/finance/info?client=ig&q=AAPL',
-    //   dataType: 'json',
-    //   success: function (data) {
-    //     console.log('GET API DATA', data);
-    //   }
-    // });
-  }
 
   handleAdd(addObj) {
     $.post('/add', addObj).done( (data) => {
@@ -97,7 +78,6 @@ class App extends React.Component {
       </div>
       <p></p>
       
-      <button className="btn btn-warning btn-xs" onClick={this.getAPI} > TEST GET API DATA AAPL </button>
       <Stock handleAdd={this.handleAdd} handleRemove={this.handleRemove} symb={this.props.testData[0].symb} lprice={this.props.testData[0].lprice}/>
       <Stock handleAdd={this.handleAdd} handleRemove={this.handleRemove} symb={this.props.testData[1].symb} lprice={this.props.testData[1].lprice}/>
       <Stock handleAdd={this.handleAdd} handleRemove={this.handleRemove} symb={this.props.testData[2].symb} lprice={this.props.testData[2].lprice}/>
@@ -105,12 +85,6 @@ class App extends React.Component {
     </div>)
   }
 }
-
-/*      <h3 className="text-center"> 
-        Budget: <small> ${this.state.budget} </small>  
-        Buying Power: <small> ${this.state.buyingPower} </small>
-        <button className="btn btn-warning btn-xs" onClick={this.clearAll}> Clear All </button>
-      </h3> */
 
 var testData = [
   {symb: 'AAPL', lprice: 140.00},
