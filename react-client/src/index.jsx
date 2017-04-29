@@ -8,7 +8,7 @@ class App extends React.Component {
     super(props);
     this.state = { 
       budget: 1000,
-      buyingPower: 1000,
+      buyingPower: 0,
     }
     this.handleAdd = this.handleAdd.bind(this);
     this.handleRemove = this.handleRemove.bind(this);
@@ -16,17 +16,14 @@ class App extends React.Component {
   }
 
   componentDidMount() {
-    // $.ajax({
-    //   url: '/items', 
-    //   success: (data) => {
-    //     this.setState({
-    //       items: data
-    //     })
-    //   },
-    //   error: (err) => {
-    //     console.log('err', err);
-    //   }
-    // });
+    $.get('/buyingPower').done( (data) => {
+      console.log('data @ get call', data);
+      var curPower = this.countTotal(data);
+      console.log('CURPOWER', curPower);
+      this.setState({
+        buyingPower: curPower
+      })      
+    })
   }
 
   countTotal(data) {
@@ -43,6 +40,8 @@ class App extends React.Component {
           buyingPower: curPower
         })
       }
+    }).catch( (err) => {
+      console.log('ERROR with ADD - HANDLE ADD')
     })
   }
   

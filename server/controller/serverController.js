@@ -8,8 +8,10 @@ exports.addOrder = function (req, res) {
     if (err) {res.send(err)}
   }).then(() => {
     Order.find({ }, function (err, result) {
-      if (err){res.send(err)}
-      res.json(result);  
+      if (err){res.send(err)} else {
+        console.log('result'. result);
+        res.json(result);  
+      }
     });
     }
   )
@@ -22,8 +24,10 @@ exports.rmOrder = function (req, res) {
     if (err){res.send(err)}
   }).then( () => {
     Order.find({ }, function (err, result) {
-      if (err){res.send(err)}
-      res.json(result);  
+      if (err){res.send(err)} else {
+        console.log('result'. result);
+        res.json(result);  
+      }
     });
   })
 
@@ -32,8 +36,10 @@ exports.rmOrder = function (req, res) {
 exports.getAll = function (req, res) {
 
   Order.find({ }, function (err, result) {
-    if (err){res.send(err)}
-    res.json(result);  
+    if (err){res.send(err)} else {
+      console.log('result'. result);
+      res.json(result);  
+    } 
   });
 
 };

@@ -5,7 +5,9 @@ class Stock extends React.Component {
     super(props);
     this.state = { 
       total: 0,
-      qty: 0
+      qty: 0,
+      sharesAdded: 0,
+      totalAdded: 0
     }
     this.qtyChange = this.qtyChange.bind(this);
     this.add = this.add.bind(this);
@@ -22,6 +24,14 @@ class Stock extends React.Component {
   }
 
   add () {  
+    var sharesAdded = this.state.qty + this.state.sharesAdded;
+    var totalAdded = this.state.total + this.state.totalAdded;
+
+    this.setState({
+      sharesAdded: sharesAdded,
+      totalAdded: totalAdded
+    })
+
     var addObj = {
       symb: this.props.symb,
       price: this.props.lprice,
@@ -31,7 +41,12 @@ class Stock extends React.Component {
     this.props.handleAdd(addObj);
   }
 
-  remove () {  
+  remove () {
+    this.setState({
+      sharesAdded: 0,
+      totalAdded: 0
+    })    
+
     var removeObj = {
       symb: this.props.symb,
       price: this.props.lprice,
@@ -47,7 +62,9 @@ class Stock extends React.Component {
         <h5>STOCK TICKER: {this.props.symb}</h5>
         <div>Price: ${this.props.lprice}</div>
         <div>Shares: {this.state.qty} </div>
-        <div>Total: ${this.state.total} </div>
+        <div>Total: ${this.state.total} </div> <p></p>
+        <div>Shares Added: ${this.state.sharesAdded} </div>
+        <div>Total Added: ${this.state.totalAdded} </div>                
         <form>
             <input type="number" placeholder='quantity' onChange={this.qtyChange}/>
         </form>
