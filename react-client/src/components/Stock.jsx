@@ -32,7 +32,13 @@ class Stock extends React.Component {
   }
 
   remove () {  
-    this.props.handleRemove();
+    var removeObj = {
+      symb: this.props.symb,
+      price: this.props.lprice,
+      qty: this.state.qty,
+      total: this.state.total
+    }    
+    this.props.handleRemove(removeObj);
   }
 
   render () {

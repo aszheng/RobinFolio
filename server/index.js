@@ -2,7 +2,7 @@ var express = require('express');
 var bodyParser = require('body-parser');
 // UNCOMMENT THE DATABASE YOU'D LIKE TO USE
 // var items = require('../database-mysql');
-// var items = require('../database-mongo');
+var Order = require('../database-mongo');
 
 var app = express();
 
@@ -15,13 +15,28 @@ app.get('/buyingPower', function (req, res) {
 });
 
 app.post('/add', function (req, res) {
-  console.log('INSIDE SERVER ADD POST ROUTE');
-  console.log('REQ BODY', req.body);
-  res.end();
+  console.log('REQ BODY ADD OBJ', req.body);
+
+  var newOrder = new Order (req.body);
+  newOrder.save().then( (savedOrder)=> {
+    console.log('SAVED ORDER', savedOrder);
+    res.json(savedOrder);
+  }).catch((err)=> {
+    console.log('ERR - DUPLICAT');
+    res.end('DUPLICATE');
+  });
+
 });
 
 app.post('/remove', function (req, res) {
-  console.log('INSIDE SERVER ADD POST ROUTE');
+  console.log('REQ BODY REMOVE OBJ', req.body.symb);
+
+
+  Order.deleteOne({ symb: req.body.symb }, function (err) {
+    console.log('DELETED')
+  });
+
+  res.end();  
 });
 
 app.listen(3000, function() {

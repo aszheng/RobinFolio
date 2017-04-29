@@ -29,17 +29,22 @@ class App extends React.Component {
   }
 
   handleAdd(addObj) {
-    console.log(addObj, 'ADDOBJ');
     $.post('/add', addObj,function (req, res){
       console.log("INSIDE HANDLEADD POST");
+      console.log(res.body);
     })
-    .done( () => {
-      console.log('POST IS SUCCESSFUL')
+    .done( (err, result) => {
+      console.log('POST SUCCESSFUL');
     })
   }
   
-  handleRemove() {
-    console.log('INSIDE REMOVE');
+  handleRemove(removeObj) {
+    $.post('/remove', removeObj,function (req, res){
+      console.log("INSIDE HANDLE REMOVE POST");
+    })
+    .done( () => {
+      console.log('HANDLE REMOVE POST IS SUCCESSFUL')
+    })
   }
 
   render () {

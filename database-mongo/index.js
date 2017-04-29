@@ -11,21 +11,26 @@ db.once('open', function() {
   console.log('mongoose connected successfully');
 });
 
-var itemSchema = mongoose.Schema({
-  quantity: Number,
-  description: String
+var orderSchema = mongoose.Schema({
+  symb: {type: String, unique: true, dropDups : true},
+  price: Number,
+  qty: Number,
+  total: Number
 });
 
-var Item = mongoose.model('Item', itemSchema);
+var Order = mongoose.model('Order', orderSchema);
 
-var selectAll = function(callback) {
-  Item.find({}, function(err, items) {
-    if(err) {
-      callback(err, null);
-    } else {
-      callback(null, items);
-    }
-  });
-};
+module.exports = Order; 
 
-module.exports.selectAll = selectAll;
+
+// var selectAll = function(callback) {
+//   Order.find({}, function(err, items) {
+//     if(err) {
+//       callback(err, null);
+//     } else {
+//       callback(null, items);
+//     }
+//   });
+// };
+
+// module.exports.selectAll = selectAll;
