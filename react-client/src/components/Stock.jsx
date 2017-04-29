@@ -59,30 +59,62 @@ class Stock extends React.Component {
 
   render () {
     return (
-      <div style={divStyle}>
-        <h5>STOCK TICKER: {this.props.symb}</h5>
-        <div>Shares Added: ${this.state.sharesAdded} </div>
-        <div>Total Added: ${this.state.totalAdded} </div> <p></p>
-        <div>Price: ${this.props.lprice}</div>
-        <div>Shares: {this.state.qty} </div>
-        <div>Total: ${this.state.total} </div> 
-        <form>
-            <input type="number" placeholder='quantity' onChange={this.qtyChange} ref={el => this.inputQty = el}/>
-        </form>
-        <button type="submit" value="Add" onClick={this.add}>Add</button>
-        <button type="submit" value="Remove" onClick={this.remove}>Remove</button>
-      </div>      
+      <div className="container">
+        <div className="jumbotron">
+          <h2 className="text-center">STOCK TICKER: <small>{this.props.symb}</small></h2>
+          <p></p>
+          <div className="row">
+            <div className="col-md-6">
+              <h4>Total Added: <small>${this.state.totalAdded}</small></h4> 
+            </div>          
+            <div className="col-md-6">
+              <h4>Shares Added: <small>{this.state.sharesAdded}</small></h4> 
+            </div>
+          </div>
+          <p></p>
+
+          <table className="table table-hover">
+            <thead>
+              <tr>
+                <th>Price: </th>
+                <th>Shares: </th>
+                <th>Total: </th>
+              </tr>              
+            </thead>
+            <tbody>
+              <tr>
+                <td>${this.props.lprice}</td>
+                <td>{this.state.qty}</td>
+                <td>${this.state.total}</td>
+              </tr>
+            </tbody>
+          </table>
+
+          <div className="text-center">
+            <input type="number" min="1" max="100" placeholder='qty' 
+              onChange={this.qtyChange} 
+              ref={el => this.inputQty = el}
+            />
+            <button type="submit" value="Add" onClick={this.add} 
+              className="btn btn-success btn-sm">Add
+            </button>
+            <button type="submit" value="Remove" onClick={this.remove} 
+              className="btn btn-warning btn-sm">Remove
+            </button>
+          </div>
+        </div>
+      </div>
     )
   }
 }
 
-const divStyle = {
-  color: 'white',
-  backgroundColor:'#A9A9A9',
-  borderStyle: 'solid',
-  borderWidth: 2,  
-  borderColor: 'black', 
-  marginBottom: 5, 
-};
+// const divStyle = {
+//   color: 'white',
+//   backgroundColor:'#A9A9A9',
+//   borderStyle: 'solid',
+//   borderWidth: 2,  
+//   borderColor: 'black', 
+//   marginBottom: 5, 
+// };
 
 export default Stock;

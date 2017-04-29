@@ -17,9 +17,7 @@ class App extends React.Component {
     this.fetch = this.fetch.bind(this);    
   }
 
-  componentDidMount() {
-    this.fetch();
-  }
+  componentDidMount() {this.fetch();}
 
   fetch(){
     $.get('/buyingPower').done( (data) => {
@@ -31,10 +29,7 @@ class App extends React.Component {
     var curTotal = 0;
     data.forEach( (order) => {curTotal += order.total;})
     var curPower = this.state.budget - curTotal;
-    this.setState({
-      buyingPower: curPower
-    })
-    return;   
+    this.setState({buyingPower: curPower})
   }
 
   clearAll() {
@@ -67,17 +62,22 @@ class App extends React.Component {
   }
 
   render () {
-    return (<div>
-      <h1>RobinHack</h1>
-      <div>
-        <p>Budget: ${this.state.budget}</p>
-        <p>Buying Power: ${this.state.buyingPower}</p>
-      </div>
+    return (<div className="page-header">
+      <h1 className="text-center"> RobinHack </h1>
+      
+      <h3 className="text-center"> 
+        Budget: <small> ${this.state.budget} </small>  
+        Buying Power: <small> ${this.state.buyingPower} </small>
+        <button className="btn btn-default btn-xs" onClick={this.clearAll}> Clear All </button>
+      </h3>
 
-      <button onClick={this.clearAll}> Clear All </button>
+
+      <div className="text-center">
+      </div>      
       <Stock handleAdd={this.handleAdd} handleRemove={this.handleRemove} symb={this.props.testData[0].symb} lprice={this.props.testData[0].lprice}/>
       <Stock handleAdd={this.handleAdd} handleRemove={this.handleRemove} symb={this.props.testData[1].symb} lprice={this.props.testData[1].lprice}/>
       <Stock handleAdd={this.handleAdd} handleRemove={this.handleRemove} symb={this.props.testData[2].symb} lprice={this.props.testData[2].lprice}/>
+
     </div>)
   }
 }
