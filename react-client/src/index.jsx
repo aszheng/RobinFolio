@@ -64,16 +64,20 @@ class App extends React.Component {
   render () {
     return (<div className="page-header">
       <h1 className="text-center"> RobinHack </h1>
-      
-      <h3 className="text-center"> 
-        Budget: <small> ${this.state.budget} </small>  
-        Buying Power: <small> ${this.state.buyingPower} </small>
-        <button className="btn btn-default btn-xs" onClick={this.clearAll}> Clear All </button>
-      </h3>
 
-
-      <div className="text-center">
-      </div>      
+      <div className="row" className='container'>
+        <div className="col-xs-6 col-md-4" className='text-center'>
+          <h4>Budget: <small> ${this.state.budget} </small></h4> 
+        </div>          
+        <div className="col-xs-6 col-md-4" className='text-center'>
+          <h4>Buying Power: <small> ${this.state.buyingPower} </small></h4> 
+        </div>              
+        <div className="col-xs-6 col-md-4" className='text-center'>
+          <button className="btn btn-warning btn-xs" onClick={this.clearAll}> Clear All </button>
+        </div>        
+      </div>
+      <p></p>
+   
       <Stock handleAdd={this.handleAdd} handleRemove={this.handleRemove} symb={this.props.testData[0].symb} lprice={this.props.testData[0].lprice}/>
       <Stock handleAdd={this.handleAdd} handleRemove={this.handleRemove} symb={this.props.testData[1].symb} lprice={this.props.testData[1].lprice}/>
       <Stock handleAdd={this.handleAdd} handleRemove={this.handleRemove} symb={this.props.testData[2].symb} lprice={this.props.testData[2].lprice}/>
@@ -81,6 +85,12 @@ class App extends React.Component {
     </div>)
   }
 }
+
+/*      <h3 className="text-center"> 
+        Budget: <small> ${this.state.budget} </small>  
+        Buying Power: <small> ${this.state.buyingPower} </small>
+        <button className="btn btn-warning btn-xs" onClick={this.clearAll}> Clear All </button>
+      </h3> */
 
 var testData = [
   {symb: 'AAPL', lprice: 140.00},

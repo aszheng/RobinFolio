@@ -61,7 +61,7 @@ class Stock extends React.Component {
     return (
       <div className="container">
         <div className="jumbotron">
-          <h2 className="text-center">STOCK TICKER: <small>{this.props.symb}</small></h2>
+          <h2 className="text-center">STOCK TICKER: {this.props.symb}</h2>
           <p></p>
           <div className="row">
             <div className="col-md-6">
@@ -91,7 +91,7 @@ class Stock extends React.Component {
           </table>
 
           <div className="text-center">
-            <input type="number" min="1" max="100" placeholder='qty' 
+            <input type="number" min="0" max="100" placeholder='qty' 
               onChange={this.qtyChange} 
               ref={el => this.inputQty = el}
             />
