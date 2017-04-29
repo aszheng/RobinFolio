@@ -10,5 +10,8 @@ module.exports = function (app) {
   app.route('/remove')
     .post(orderTable.rmOrder);
 
+  app.route('/clearAll')
+    .post(orderTable.clearAll);
+
 }
 

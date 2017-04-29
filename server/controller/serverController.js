@@ -9,7 +9,7 @@ exports.addOrder = function (req, res) {
   }).then(() => {
     Order.find({ }, function (err, result) {
       if (err){res.send(err)} else {
-        console.log('result'. result);
+        console.log('RESULT in addORDER SERVER', result)
         res.json(result);  
       }
     });
@@ -25,7 +25,6 @@ exports.rmOrder = function (req, res) {
   }).then( () => {
     Order.find({ }, function (err, result) {
       if (err){res.send(err)} else {
-        console.log('result'. result);
         res.json(result);  
       }
     });
@@ -37,9 +36,14 @@ exports.getAll = function (req, res) {
 
   Order.find({ }, function (err, result) {
     if (err){res.send(err)} else {
-      console.log('result'. result);
       res.json(result);  
     } 
   });
 
+};
+
+exports.clearAll = function (req, res) {
+  console.log("CLEARALL")
+  Order.remove({}, function (err, result){});
+  res.end();
 };

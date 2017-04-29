@@ -12,7 +12,6 @@ class Stock extends React.Component {
     this.qtyChange = this.qtyChange.bind(this);
     this.add = this.add.bind(this);
     this.remove = this.remove.bind(this);
-
   }
 
   qtyChange (e) {
@@ -24,6 +23,8 @@ class Stock extends React.Component {
   }
 
   add () {  
+    this.inputQty = '';
+
     var sharesAdded = this.state.qty + this.state.sharesAdded;
     var totalAdded = this.state.total + this.state.totalAdded;
 
@@ -60,13 +61,13 @@ class Stock extends React.Component {
     return (
       <div style={divStyle}>
         <h5>STOCK TICKER: {this.props.symb}</h5>
+        <div>Shares Added: ${this.state.sharesAdded} </div>
+        <div>Total Added: ${this.state.totalAdded} </div> <p></p>
         <div>Price: ${this.props.lprice}</div>
         <div>Shares: {this.state.qty} </div>
-        <div>Total: ${this.state.total} </div> <p></p>
-        <div>Shares Added: ${this.state.sharesAdded} </div>
-        <div>Total Added: ${this.state.totalAdded} </div>                
+        <div>Total: ${this.state.total} </div> 
         <form>
-            <input type="number" placeholder='quantity' onChange={this.qtyChange}/>
+            <input type="number" placeholder='quantity' onChange={this.qtyChange} ref={el => this.inputQty = el}/>
         </form>
         <button type="submit" value="Add" onClick={this.add}>Add</button>
         <button type="submit" value="Remove" onClick={this.remove}>Remove</button>

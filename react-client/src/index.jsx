@@ -13,32 +13,39 @@ class App extends React.Component {
     this.handleAdd = this.handleAdd.bind(this);
     this.handleRemove = this.handleRemove.bind(this);
     this.countTotal = this.countTotal.bind(this);    
+    this.clearAll = this.clearAll.bind(this);    
+    this.fetch = this.fetch.bind(this);    
   }
 
   componentDidMount() {
+    this.fetch();
+  }
+
+  fetch(){
     $.get('/buyingPower').done( (data) => {
-      console.log('data @ get call', data);
-      var curPower = this.countTotal(data);
-      console.log('CURPOWER', curPower);
-      this.setState({
-        buyingPower: curPower
-      })      
-    })
+      this.countTotal(data);    
+    })    
   }
 
   countTotal(data) {
     var curTotal = 0;
     data.forEach( (order) => {curTotal += order.total;})
-    return this.state.budget - curTotal;
+    var curPower = this.state.budget - curTotal;
+    this.setState({
+      buyingPower: curPower
+    })
+    return;   
   }
+
+  clearAll() {
+    $.post('/clearAll').done();
+    this.fetch();
+  }  
 
   handleAdd(addObj) {
     $.post('/add', addObj).done( (data) => {
       if (data.length > 0) {
-        var curPower = this.countTotal(data);
-        this.setState({
-          buyingPower: curPower
-        })
+        this.countTotal(data);
       }
     }).catch( (err) => {
       console.log('ERROR with ADD - HANDLE ADD')
@@ -49,10 +56,7 @@ class App extends React.Component {
     $.post('/remove', removeObj).done ( (data) => {
       console.log('DATA @ REMOVE', data);
       if (data.length > 0) {
-        var curPower = this.countTotal(data);
-        this.setState({
-          buyingPower: curPower
-        })
+        this.countTotal(data);
       } else {
         var curPower = this.state.budget;
         this.setState({
@@ -69,7 +73,8 @@ class App extends React.Component {
         <p>Budget: ${this.state.budget}</p>
         <p>Buying Power: ${this.state.buyingPower}</p>
       </div>
-      
+
+      <button onClick={this.clearAll}> Clear All </button>
       <Stock handleAdd={this.handleAdd} handleRemove={this.handleRemove} symb={this.props.testData[0].symb} lprice={this.props.testData[0].lprice}/>
       <Stock handleAdd={this.handleAdd} handleRemove={this.handleRemove} symb={this.props.testData[1].symb} lprice={this.props.testData[1].lprice}/>
       <Stock handleAdd={this.handleAdd} handleRemove={this.handleRemove} symb={this.props.testData[2].symb} lprice={this.props.testData[2].lprice}/>
