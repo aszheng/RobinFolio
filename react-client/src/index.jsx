@@ -48,9 +48,7 @@ class App extends React.Component {
 
   handleAdd(addObj) {
     $.post('/add', addObj).done( (data) => {
-      console.log('went into HANDLE ADD DONE')
       this.fetch();
-
     }).catch( (err) => {
       console.log('ERROR with ADD - HANDLE ADD')
     })
