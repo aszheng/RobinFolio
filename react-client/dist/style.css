@@ -1,0 +1,15 @@
+.jumbotron {
+  padding: 0px 20px 20px 30px;
+}
+
+#robinfolio {
+  color: #50a750;
+  font-size: 50px;
+}
+
+#stockcomponent {
+  border-radius: 10px;
+  border: 2px solid #d5d5d5;
+  padding: 20px;  
+  margin-right: 0px;
+}
