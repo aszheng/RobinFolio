@@ -12,6 +12,7 @@ db.once('open', function() {
 });
 
 var orderSchema = mongoose.Schema({
+  companyName: String,
   symb: {type: String, unique: true, dropDups: true} ,
   price: Number,
   qty: Number,

@@ -11,7 +11,7 @@ class StockDataTable extends React.Component {
       <div>
         <table className="table table-hover">
           <thead>
-            <tr>
+            <tr className='stockInfoTable'>
               <th>%Day </th>
               <th>%YTD </th>
               <th>Market Cap </th>
@@ -20,7 +20,7 @@ class StockDataTable extends React.Component {
             </tr>              
           </thead>
           <tbody>
-            <tr>
+            <tr className='stockInfoTable'>
               <td>{Math.floor(this.props.stockData.ChangePercent * 100) / 100}</td>
               <td>{Math.floor(this.props.stockData.ChangePercentYTD * 100) / 100}</td>
               <td>{Math.floor(this.props.stockData.MarketCap/ 1000000).toLocaleString()}M</td>

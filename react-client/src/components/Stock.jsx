@@ -53,6 +53,7 @@ class Stock extends React.Component {
 
   add () {  
     var addObj = {
+      companyName: this.state.companyName,
       symb: this.state.symb,
       price: this.state.lprice,
       qty: this.state.qty,
@@ -85,7 +86,7 @@ class Stock extends React.Component {
   render () {
     return (
         <div>
-          <div >
+          <div>
             <form onSubmit={this.handleGetDataClick}>
               <input ref='ticker' type='text'/>
               <input  className="btn btn-success btn-xs" type='submit' placeholder="Enter Ticker..."/>
@@ -99,14 +100,14 @@ class Stock extends React.Component {
 
           <table className="table table-hover">
             <thead>
-              <tr>
+              <tr className='stockInfoTable'>
                 <th>Last Price </th>
                 <th>Shares </th>
                 <th>Total </th>
               </tr>              
             </thead>
             <tbody>
-              <tr>
+              <tr className='stockInfoTable'>
                 <td>${this.state.lprice.toLocaleString()}</td>
                 <td>{this.state.qty}</td>
                 <td>${this.state.total.toLocaleString()}</td>

@@ -9,13 +9,15 @@ class App extends React.Component {
     super(props);
     this.state = { 
       budget: 1000,
-      buyingPower: 0,
+      buyingPower: 1000,
+      totalInvested: 0,
       allEntry: []
     }
-    this.handleAdd = this.handleAdd.bind(this);
-    this.handleRemove = this.handleRemove.bind(this);
+    this.budgetChange = this.budgetChange.bind(this);    
     this.countTotal = this.countTotal.bind(this);    
     this.clearAll = this.clearAll.bind(this);    
+    this.handleAdd = this.handleAdd.bind(this);
+    this.handleRemove = this.handleRemove.bind(this);
     this.fetch = this.fetch.bind(this);    
   }
 
@@ -34,11 +36,23 @@ class App extends React.Component {
       })    
   }
 
+  budgetChange (e) {
+    var nBudget = e.target.value;
+    this.setState({
+      budget: nBudget,
+      buyingPower: nBudget,
+      totalInvested: 0
+    })
+    this.fetch();
+  }
+
   countTotal(data) {
     var curTotal = 0;
     data.forEach( (order) => {curTotal += order.total;})
     var curPower = this.state.budget - curTotal;
-    this.setState({buyingPower: curPower})
+    this.setState(
+      {buyingPower: curPower, totalInvested: curTotal}
+    )
   }
 
   clearAll() {
@@ -68,11 +82,14 @@ class App extends React.Component {
         <div className='container'>
           <div className='col-md-6 col-md-offset-3'>
             <div className="row" >
-              <div className='col-xs-6' >
-                <h4>Budget: <small> ${this.state.budget.toLocaleString()} </small></h4> 
+              <div className='col-md-4' >
+                <h4>Budget <small><div className='liveBudgetNum'> $ <input type='number' min="0" max="100000000" value={this.state.budget} onChange={this.budgetChange}/></div></small></h4> 
               </div>          
-              <div className='col-xs-6' >
-                <h4>Buying Power: <small> ${this.state.buyingPower.toLocaleString()} </small></h4> 
+              <div className='col-md-4' >
+                <h4>Buying Power <small> <div className='liveNums'>${this.state.buyingPower.toLocaleString()} </div></small></h4> 
+              </div>                            
+              <div className='col-md-4' >
+                <h4>Total Invested <small> <div className='liveNums'>${this.state.totalInvested.toLocaleString()} </div></small></h4> 
               </div>              
             </div>
           </div>
@@ -100,8 +117,6 @@ class App extends React.Component {
             </div>
           </div>
         </div>
-
-
     </div>
     )
   }

@@ -14,6 +14,7 @@ class Portfolio extends React.Component {
           <thead>
             <tr>
               <th>Symbol</th>
+              <th>Company Name</th>
               <th>Price Per Share</th>
               <th>Qty</th>
               <th>Total </th>
