@@ -12,13 +12,6 @@ app.use(bodyParser.urlencoded({ extended: false }))
 var routes = require('./Routes/serverRoutes');
 routes(app);
 
-app.post('/getAPIData', function (req, res) {
-    var ticker = req.body.symb;
-    request({ url: 'http://dev.markitondemand.com/Api/v2/Quote/json', qs: { symbol: ticker }}, function (err, response,body) {
-    res.json(body);
-  })
-});
-
 app.listen(3000, function() {
   console.log('listening on port 3000!');
 });

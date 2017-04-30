@@ -22,12 +22,16 @@ class App extends React.Component {
   componentDidMount() {this.fetch();}
 
   fetch(){
-    $.get('/buyingPower').done( (data) => {
-      this.countTotal(data);    
-      this.setState({
-        allEntry: data 
+    $.get('/buyingPower')
+      .done( (data) => {
+        this.countTotal(data);    
+        this.setState({
+          allEntry: data 
+        })
       })
-    })    
+      .catch( (err) => {
+        console.log('ERROR with GET - FETCH')
+      })    
   }
 
   countTotal(data) {
@@ -44,9 +48,9 @@ class App extends React.Component {
 
   handleAdd(addObj) {
     $.post('/add', addObj).done( (data) => {
-      if (data.length > 0) {
-        this.fetch();
-      }
+      console.log('went into HANDLE ADD DONE')
+      this.fetch();
+
     }).catch( (err) => {
       console.log('ERROR with ADD - HANDLE ADD')
     })

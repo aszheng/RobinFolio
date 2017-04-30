@@ -8,12 +8,11 @@ class Stock extends React.Component {
     super(props);
     this.state = { 
       symb: '',
+      companyName: '',
       lprice: 0,
       stockData: {"Name":"","Symbol":"","LastPrice":0,"MarketCap":0,"Volume":0,"ChangePercent":0,"ChangePercentYTD":0,"High":0,"Low":0,"Open":0},
       total: 0,
       qty: 0,
-      sharesAdded: 0,
-      totalAdded: 0
     }
 
     this.qtyChange = this.qtyChange.bind(this);
@@ -53,16 +52,6 @@ class Stock extends React.Component {
   }
 
   add () {  
-    var sharesAdded = this.state.qty + this.state.sharesAdded;
-    var totalAdded = this.state.total + this.state.totalAdded;
-
-    this.setState({
-      sharesAdded: sharesAdded,
-      qty: 0,
-      total: 0,
-      totalAdded: totalAdded
-    })
-
     var addObj = {
       symb: this.state.symb,
       price: this.state.lprice,
@@ -71,14 +60,13 @@ class Stock extends React.Component {
     }
     this.props.handleAdd(addObj);
 
+    this.setState({
+      qty: 0,
+      total: 0,
+    })
   }
 
   remove () {
-    this.setState({
-      sharesAdded: 0,
-      totalAdded: 0
-    })    
-
     var removeObj = {
       companyName: this.state.companyName,
       symb: this.state.symb,
@@ -87,6 +75,11 @@ class Stock extends React.Component {
       total: this.state.total
     }    
     this.props.handleRemove(removeObj);
+
+    this.setState({
+      sharesAdded: 0,
+      totalAdded: 0
+    })    
   }
 
   render () {
@@ -139,11 +132,3 @@ class Stock extends React.Component {
 
 
 export default Stock;
-         // <div className="row">
-         //    <div className="col-xs-6">
-         //      <h4>Total Added: <small>${this.state.totalAdded}</small></h4> 
-         //    </div>          
-         //    <div className="col-xs-6">
-         //      <h4>Shares Added: <small>{this.state.sharesAdded}</small></h4> 
-         //    </div>
-         //  </div>

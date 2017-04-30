@@ -11,7 +11,10 @@ module.exports = function (app) {
     .post(orderTable.rmOrder);
 
   app.route('/clearAll')
-    .post(orderTable.clearAll);
+    .post(orderTable.clearAll);  
+
+  app.route('/getAPIData')
+    .post(orderTable.getAPIData);
 
 
 }
