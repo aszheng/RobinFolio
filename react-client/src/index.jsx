@@ -21,7 +21,7 @@ class App extends React.Component {
     this.fetch = this.fetch.bind(this);    
   }
 
-  componentDidMount() {this.fetch();}
+  // componentDidMount() {this.fetch();}
 
   fetch(){
     $.get('/buyingPower')
