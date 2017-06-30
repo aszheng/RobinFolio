@@ -1,6 +1,9 @@
-var express = require('express');
-var bodyParser = require('body-parser');
-var request = require('request');
+const express = require('express');
+const bodyParser = require('body-parser');
+const request = require('request');
+const dotenv = require('dotenv').config();
+
+var port = process.env.PORT || 3000;
 
 var Order = require('../database-mongo');
 
@@ -13,5 +16,5 @@ var routes = require('./Routes/serverRoutes');
 routes(app);
 
 app.listen(3000, function() {
-  console.log('listening on port 3000!');
+  console.log(`listening on port ${port}!`);
 });  
