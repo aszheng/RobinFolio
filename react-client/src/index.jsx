@@ -21,7 +21,7 @@ class App extends React.Component {
     this.fetch = this.fetch.bind(this);    
   }
 
-  // componentDidMount() {this.fetch();}
+  componentDidMount() {this.fetch();}
 
   fetch(){
     $.get('/buyingPower')
@@ -30,6 +30,8 @@ class App extends React.Component {
         this.setState({
           allEntry: data 
         })
+        console.log(data,'data');
+        console.log('sucessfully mongo fetch');
       })
       .catch( (err) => {
         console.log('ERROR with GET - FETCH')
@@ -63,6 +65,7 @@ class App extends React.Component {
   handleAdd(addObj) {
     $.post('/add', addObj).done( (data) => {
       this.fetch();
+      console.log('sucessfully mongo add');      
     }).catch( (err) => {
       console.log('ERROR with ADD - HANDLE ADD')
     })

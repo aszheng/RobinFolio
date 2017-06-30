@@ -1,7 +1,7 @@
 var express = require('express');
 var bodyParser = require('body-parser');
 var request = require('request');
-var Order = require('../../database-mongo');
+var Order = require('../../database-mongo/index.js');
 
 
 exports.addOrder = function (req, res) {
