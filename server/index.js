@@ -29,11 +29,13 @@ var Order = require('../database-mongo/index.js');
 const app = express();
 
 var port = process.env.PORT || 3000;
+console.log('process.env.PORT', process.env.PORT)
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }))
 
 app.use(express.static(__dirname + '/../react-client/dist'));
+console.log('APP USE STATIC', __dirname + '/../react-client/dist')
 
 
 var routes = require('./Routes/serverRoutes');
