@@ -1,5 +1,5 @@
 module.exports = function (app) {
-  var orderTable = require('../Controller/serverController');
+  var orderTable = require('../controller/serverController');
 
   app.route('/buyingPower')
     .get(orderTable.getAll);
