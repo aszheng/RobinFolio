@@ -1,5 +1,6 @@
 var mongoose = require('mongoose');
-mongoose.connect('mongodb://localhost/test');
+// mongoose.connect('mongodb://localhost/test');
+mongoose.connect('mongodb://group:Hackreactor1@ds143342.mlab.com:43342/robinfolio');
 
 var db = mongoose.connection;
 
@@ -22,16 +23,3 @@ var orderSchema = mongoose.Schema({
 var Order = mongoose.model('Order', orderSchema);
 
 module.exports = Order; 
-
-
-// var selectAll = function(callback) {
-//   Order.find({}, function(err, items) {
-//     if(err) {
-//       callback(err, null);
-//     } else {
-//       callback(null, items);
-//     }
-//   });
-// };
-
-// module.exports.selectAll = selectAll;

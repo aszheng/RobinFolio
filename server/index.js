@@ -1,45 +1,58 @@
-// const express = require('express');
-// const bodyParser = require('body-parser');
-// const request = require('request');
-// const dotenv = require('dotenv').config();
-
-// var port = process.env.PORT || 3000;
-
-// var Order = require('../database-mongo');
-
-// var app = express();
-
-// app.use(express.static(__dirname + '/../react-client/dist'));
-// app.use(bodyParser.urlencoded({ extended: false }))
-
-// var routes = require('./Routes/serverRoutes');
-// routes(app);
-
-// app.listen(3000, function() {
-//   console.log(`listening on port ${port}!`);
-// });  
-
 const express = require('express');
 const dotenv = require('dotenv').config();
 const path = require('path');
 const bodyParser = require('body-parser');
+// const Artists = require('../database/Artists.js');
+// const AppService = require('./AppService.js');
 
-var Order = require('../database-mongo/index.js');
+var Order = require('../database/index.js');
 
 const app = express();
 
 var port = process.env.PORT || 3000;
-console.log('process.env.PORT', process.env.PORT)
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }))
 
-app.use(express.static(__dirname + '/../react-client/dist'));
-console.log('APP USE STATIC', __dirname + '/../react-client/dist')
+app.use(express.static(__dirname + '/../client/dist'));
 
 
 var routes = require('./Routes/serverRoutes');
 routes(app);
+
+// var mostRecentSearch = null;
+
+// app.post('/search', function(req, res) {
+//   AppService(req)
+//     .then(data => {
+//       mostRecentSearch = data;
+//       res.json(data);
+//     })
+//     .catch(error => {
+//       res.send(error);
+//     });
+// });
+
+// app.get('/favoriteslist', function(req, res) {
+//   Artists.fetchFavorites()
+//     .then(results => {
+//       res.send(results);
+//     })
+//     .catch(error => {
+//       res.send(error);
+//     });
+// });
+
+
+// app.post('/favorite', function(req, res) {
+//   Artists.findAndUpdate({ artist_name: req.body }, mostRecentSearch, function(results, error) {
+//     if (results) {
+//       res.JSON(results);
+//     } else {
+//       res.send(error);
+//     }
+//   });
+// });
 
 var server = app.listen(port, function() {
   console.log(`Magical unicorns will arrive on port ${port}!`);
