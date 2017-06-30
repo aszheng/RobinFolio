@@ -5,6 +5,7 @@
   "main": "index.js",
   "scripts": {
     "react-dev": "webpack -d --watch",
+    "build": "webpack -p",    
     "server-dev": "nodemon server/index.js",
     "heroku-postbuild": "webpack -p"    
   },
@@ -26,6 +27,7 @@
     "mysql": "^2.13.0",
     "react": "^15.4.2",
     "react-dom": "^15.4.2",
-    "request": "^2.81.0"
+    "request": "^2.81.0",
+    "webpack": "^2.2.1"    
   }
 }
