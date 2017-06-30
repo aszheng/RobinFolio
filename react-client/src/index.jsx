@@ -77,7 +77,7 @@ class App extends React.Component {
   render () {
     return (
       <div className="row">
-        <h1 className="text-center" id='robinfolio'> RobinFolio </h1>
+        <h1 className="text-center" id='robinfolio'>RobinFolio</h1>
         
         <div className='container'>
           <div className='col-md-6 col-md-offset-3'>
